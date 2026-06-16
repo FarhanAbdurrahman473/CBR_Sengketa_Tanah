@@ -3,8 +3,9 @@ import re
 import pandas as pd
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-RAW_FOLDER = os.path.join(BASE_DIR, "data", "raw")
-PROCESSED_FOLDER = os.path.join(BASE_DIR, "data", "processed")
+PROJECT_DIR = os.path.abspath(os.path.join(BASE_DIR, os.pardir))
+RAW_FOLDER = os.path.join(PROJECT_DIR, "data", "raw")
+PROCESSED_FOLDER = os.path.join(PROJECT_DIR, "data", "processed")
 OUTPUT_FILE = os.path.join(PROCESSED_FOLDER, "cases.csv")
 
 os.makedirs(PROCESSED_FOLDER, exist_ok=True)
@@ -93,16 +94,20 @@ def get_penggugat(text):
 def get_tergugat(text):
 
     match = re.search(
-        r'Lawan:\s*(.*?)\s*,.*?Tergugat',
+        r'Lawan\s*:?\s*(.*?)\s*(?:Tergugat|Para Tergugat|Turut Tergugat)',
         text,
         re.IGNORECASE | re.DOTALL
     )
 
     if match:
-        return match.group(1).strip()
+
+        result = match.group(1)
+
+        result = re.sub(r'\s+', ' ', result)
+
+        return result.strip()
 
     return ""
-
 
 # ==========================
 # SHM
