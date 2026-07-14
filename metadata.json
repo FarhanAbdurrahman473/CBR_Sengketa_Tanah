@@ -1,0 +1,6 @@
+{
+  "name": "CBR Sengketa Tanah",
+  "description": "Sistem Case-Based Reasoning (CBR) untuk prediksi putusan sengketa tanah menggunakan TF-IDF dan Cosine Similarity.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
